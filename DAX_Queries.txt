@@ -1,0 +1,47 @@
+Customer - 
+
+AgeGroup = SWITCH(
+    TRUE(),
+    'public cust_detail'[customer_age] < 30, "<30",
+    'public cust_detail'[customer_age] >= 30 && 'public cust_detail'[customer_age] < 40, "30-40",
+    'public cust_detail'[customer_age] >= 40 && 'public cust_detail'[customer_age] < 50, "40-50",
+    'public cust_detail'[customer_age] >= 50 && 'public cust_detail'[customer_age] < 60, "50-60",
+    'public cust_detail'[customer_age] >= 60, "60+",
+    "unknown"
+)
+
+IncomeGroup = SWITCH(
+    True(),
+    'public cust_detail'[income] < 35000, "Low",
+    'public cust_detail'[income] >= 35000 && 'public cust_detail'[income] < 70000, "Med",
+    'public cust_detail'[income] >= 70000, "High",
+    "unknown"
+)
+
+Credit Card - 
+
+Revenue = 'public cc_detail'[annual_fees] + 'public cc_detail'[total_trans_amt] + 'public cc_detail'[interest_earned]
+
+sorted_week_num = WEEKNUM('public cc_detail'[week_start_date])
+
+Upper all are New Column
+
+Measure for Credit Card - 
+
+Current_week_Revenue = CALCULATE(
+    SUM('public cc_detail'[Revenue]),
+    FILTER(
+        ALL('public cc_detail'),
+        'public cc_detail'[sorted_week_num] = MAX('public cc_detail'[sorted_week_num])
+    )
+)
+
+Previous_week_Revenue = CALCULATE(
+    SUM('public cc_detail'[Revenue]),
+    FILTER(
+        ALL('public cc_detail'),
+        'public cc_detail'[sorted_week_num] = MAX('public cc_detail'[sorted_week_num]) - 1
+    )
+)
+
+revenue_change_over_week = DIVIDE(([Current_week_Revenue] - [Previous_week_Revenue]), [Previous_week_Revenue])
