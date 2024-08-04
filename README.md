@@ -29,9 +29,9 @@ or
 
 ### Dashboard Screenshot
 - **Credit Card Transaction Report**
-()
+(https://github.com/kuldeepbv/Credit-Card-Financial-Dashboard/blob/main/Credit%20Card%20Transaction%20Report.png)
 - **Credit Card Customer Report**
-()
+(https://github.com/kuldeepbv/Credit-Card-Financial-Dashboard/blob/main/Credit%20Card%20Customer%20Report.png)
 
 ## Insights Discovered
 
